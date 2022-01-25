@@ -67,8 +67,9 @@ int main(int argc, char** argv) {
                 });
             if (h != ls.headers.end()) {
                 scan_to_cloud(xyz_lut, h->timestamp, ls, cloud);
-                lidar_pub.publish(ouster_ros::cloud_to_cloud_msg(
-                    cloud, h->timestamp, sensor_frame));
+                auto cloud_to_correct_timestamp = ouster_ros::cloud_to_cloud_msg(cloud, h->timestamp, sensor_frame);
+                cloud_to_correct_timestamp.header.stamp = ros::Time::now();
+                lidar_pub.publish(cloud_to_correct_timestamp);
             }
         }
     };
