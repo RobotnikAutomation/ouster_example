@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
     auto frame_id = nh.param("frame_id", std::string{});
     auto sensor_frame = frame_id;
     auto imu_frame = frame_id + "_imu";
-    auto lidar_frame = frame_id;
+    auto lidar_frame = frame_id + "_aux";
 
     ouster_ros::OSConfigSrv cfg{};
     auto client = nh.serviceClient<ouster_ros::OSConfigSrv>("os_config");
